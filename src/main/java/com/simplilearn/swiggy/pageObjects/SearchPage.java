@@ -18,6 +18,8 @@ public class SearchPage {
 	
 	By searchResults = By.className("nA6kb");
 	
+	By clearButton = By.className("_3TI86");
+	
 	public SearchPage(WebDriver driver){
 		this.driver = driver;
 	}
@@ -50,5 +52,9 @@ public class SearchPage {
 		}
 		
 		return false;
+	}
+	
+	public void clearSearch() {
+		driver.findElement(clearButton).click();
 	}
 }

@@ -1,39 +1,50 @@
 package com.simplilearn;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.simplilearn.swiggy.pageObjects.SearchPage;
 
-//@Test
-public class SearchPageTest {
+public class SearchTestExcel {
 	WebDriver driver = null;
+	SearchPage searchPage = null;
 	
 	@BeforeTest
 	public void setUp() throws Exception {
 		BrowserDriver browserDriver = new BrowserDriver();
 		driver = browserDriver.getDriver();
-	}
-	
-	
-	@Test
-	public void searchPizza() throws Exception {
-		SearchPage searchPage = new SearchPage(driver);
+		searchPage = new SearchPage(driver);
 		driver.manage().window().maximize();
+		
 		driver.get("https://www.swiggy.com/");
+		
+		//Set location to New Delhi
 		Thread.sleep(3000);
 		searchPage.setLocation("New Delhi, Delhi, India");
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		searchPage.openSearch();
 		Thread.sleep(1000);
-		searchPage.search("pizza");
-		Thread.sleep(8000);
-		
-		Assert.assertTrue(searchPage.hasItem("Domino's Pizza"));
+	}
+	
+	@DataProvider
+	public Object[][] searchData(){
+		return new Object[][] {
+			{"pizza", "Domino's Pizza"}, 
+			{"chap", "Bikanervala"}
+		};
+	}
+	
+	@Test(dataProvider = "searchData")
+	public void search(String key, String item) throws Exception {
+		searchPage.search(key);
+		Thread.sleep(3000);
+		Assert.assertTrue(searchPage.hasItem(item));
+		searchPage.clearSearch();
+		Thread.sleep(500);
 	}
 	
 	@AfterTest
