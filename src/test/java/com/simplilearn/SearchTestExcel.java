@@ -26,16 +26,16 @@ public class SearchTestExcel {
 		Thread.sleep(3000);
 		searchPage.setLocation("New Delhi, Delhi, India");
 		Thread.sleep(3000);
+		
+		//Open search
 		searchPage.openSearch();
 		Thread.sleep(1000);
 	}
 	
 	@DataProvider
-	public Object[][] searchData(){
-		return new Object[][] {
-			{"pizza", "Domino's Pizza"}, 
-			{"chap", "Bikanervala"}
-		};
+	public Object[][] searchData() throws Exception{
+		ExcelData excelData = new ExcelData();
+		return excelData.getData();
 	}
 	
 	@Test(dataProvider = "searchData")

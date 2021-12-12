@@ -4,7 +4,8 @@
   <test thread-count="1" name="Test">
     <classes>
 <!--       <class name="com.simplilearn.SearchPageTest"/> -->
-      <class name="com.simplilearn.SearchTestExcel"/>
+<!--       <class name="com.simplilearn.ExcelWriter"/> -->
+<class name="com.simplilearn.SearchTestExcel"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
