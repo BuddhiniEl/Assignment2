@@ -3,8 +3,10 @@ package com.simplilearn;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -45,5 +47,40 @@ public class ExcelData {
         }
         
         return objects;
+	}
+	
+	public void updateResults(Map<String, String> results)throws Exception {
+        FileInputStream inputStream = new FileInputStream(new File(PATH));
+        XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+        XSSFSheet sheet = workbook.getSheet("Tests");
+                
+        Iterator<Row> itr = sheet.iterator();
+        
+        while(itr.hasNext()) {
+        	Row row = itr.next();
+        	
+        	Cell key = row.getCell(0);
+        	
+        	
+        	String result = results.get(key.getStringCellValue());
+        	
+        	if(result == null) continue;
+
+        	Cell resultCell = row.getCell(2);
+        	if(resultCell == null) {
+        		resultCell = row.createCell(2);
+        	}
+        	
+        	resultCell.setCellValue(result);
+        	
+        }
+        
+        	
+        inputStream.close();
+        
+        FileOutputStream outputStream =new FileOutputStream(new File(PATH));
+        workbook.write(outputStream);
+        workbook.close();
+        outputStream.close();
 	}
 }

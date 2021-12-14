@@ -9,6 +9,7 @@ import org.testng.IReporter;
 import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.xml.XmlSuite;
 
@@ -18,22 +19,28 @@ public class ExcelTestResultListener implements IReporter {
 		ISuite suite = suites.get(0);
 		Map<String, ISuiteResult> iSuiteResults = suite.getResults();
 
-		ISuiteResult suiteResult =  iSuiteResults.values().iterator().next();
-		IResultMap passedTests = suiteResult.getTestContext().getPassedTests();
-		Set<ITestResult> resultSet = passedTests.getAllResults();
+		ITestContext context = iSuiteResults.values().iterator().next().getTestContext();
 		
 		Map<String, String> resultMap  = new HashMap<String, String>();
+		addResultsToMap(resultMap, context.getPassedTests(), "PASSED");
+		addResultsToMap(resultMap, context.getFailedTests(), "FAILED");
+		addResultsToMap(resultMap, context.getSkippedTests(), "SKIPPED");
 		
+		ExcelData excelData = new ExcelData();
+		try {
+			excelData.updateResults(resultMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void addResultsToMap(Map<String, String> map, IResultMap results, String status) {
+
+		Set<ITestResult> resultSet = results.getAllResults();
 		for(ITestResult result:resultSet) {
-			String testResult = "";
-			if(result.isSuccess()) {
-				testResult = "PASS";
-			} else {
-				testResult = "FAIL";
-			}
 			String searchKey = (String)result.getParameters()[0];
-			resultMap.put(searchKey, testResult);
-			System.out.println(searchKey + ", " + testResult);
+			map.put(searchKey, status);
 		}
 	}
 }
