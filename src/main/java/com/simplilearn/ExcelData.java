@@ -5,12 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -40,6 +37,7 @@ public class ExcelData {
         	rows.add(data);
         }
         
+        workbook.close();
         Object[][] objects = new Object[rows.size()][2];
         
         for(int row = 0; row < rows.size(); row++) {

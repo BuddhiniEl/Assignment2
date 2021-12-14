@@ -7,9 +7,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.simplilearn.BrowserDriver;
+import com.simplilearn.ExcelData;
 import com.simplilearn.swiggy.pageObjects.SearchPage;
 
-public class SearchTestExcel {
+@Test
+public class SearchExcelTest {
 	WebDriver driver = null;
 	SearchPage searchPage = null;
 	

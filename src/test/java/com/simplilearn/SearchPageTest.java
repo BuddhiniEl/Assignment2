@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import com.simplilearn.swiggy.pageObjects.SearchPage;
 
-//@Test
+@Test
 public class SearchPageTest {
 	WebDriver driver = null;
 	
