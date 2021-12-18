@@ -33,11 +33,11 @@ public class SearchPageTest {
 		searchPage.search("pizza");
 		Thread.sleep(8000);
 		
-		Assert.assertTrue(searchPage.hasItem("Domino's Pizza"));
+		Assert.assertTrue(searchPage.hasItem("Pizza Pizza"));
 	}
 	
 	@AfterTest
 	public void tearDown() {
-		driver.close();
+		driver.quit();
 	}
 }

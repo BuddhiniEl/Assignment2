@@ -39,8 +39,10 @@ public class ExcelTestResultListener implements IReporter {
 
 		Set<ITestResult> resultSet = results.getAllResults();
 		for(ITestResult result:resultSet) {
-			String searchKey = (String)result.getParameters()[0];
-			map.put(searchKey, status);
+			if(result.getTestClass().getName().equals("com.simplilearn.SearchExcelTest")) {
+				String searchKey = (String)result.getParameters()[0];
+				map.put(searchKey, status);
+			}
 		}
 	}
 }
