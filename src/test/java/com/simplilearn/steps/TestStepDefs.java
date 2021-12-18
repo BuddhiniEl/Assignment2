@@ -1,5 +1,7 @@
 package com.simplilearn.steps;
 
+import java.net.MalformedURLException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -19,7 +21,7 @@ public class TestStepDefs {
 	SearchPage searchPage;
 	
 	@Before
-	public void setup() {
+	public void setup() throws MalformedURLException {
 		BrowserDriver browserDriver  = new BrowserDriver();
 		driver = browserDriver.getDriver();
 		driver.manage().window().maximize();
@@ -48,12 +50,12 @@ public class TestStepDefs {
 	public void search(String searchKey)throws InterruptedException {
 		searchPage.search(searchKey);
 		Thread.sleep(3000);
-		searchPage.clearSearch();
 	}
 		
 	@Then("{string} is suggested")
 	public void validate(String suggestion) {	
-//		Assert.assertTrue(searchPage.hasItem(suggestion));
+		Assert.assertTrue(searchPage.hasItem(suggestion));
+		searchPage.clearSearch();
 	}
 	
 	@After
